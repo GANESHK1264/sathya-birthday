@@ -1,26 +1,1830 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #f8f1e8;
+  --paper: #fffaf4;
+  --ink: #2e2520;
+  --muted: #8b7869;
+
+  --gold: #c8a46b;
+  --gold-light: #f0d49a;
+  --premium-gold: #d8b36a;
+
+  --rose: #c98592;
+
+  --dark: #100d0c;
+  --dark-soft: #1a1412;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  background: var(--dark);
+  color: white;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.site {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.site::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 15%,
+      rgba(216, 179, 106, 0.06),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(216, 179, 106, 0.035),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 70%,
+      rgba(216, 179, 106, 0.035),
+      transparent 25%
+    );
+}
+
+/* =========================
+   CINEMATIC TRANSITION
+========================= */
+
+.cinematic-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: #080605;
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.floating-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  bottom: -30px;
+
+  color: #d88998;
+
+  animation: floatHeart linear infinite;
+
+  filter: blur(0.1px);
+}
+
+@keyframes floatHeart {
+  0% {
+    transform:
+      translateY(0)
+      rotate(0deg)
+      scale(0.8);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.22;
+  }
+
+  50% {
+    transform:
+      translateY(-50vh)
+      translateX(30px)
+      rotate(15deg)
+      scale(1);
+  }
+
+  100% {
+    transform:
+      translateY(-110vh)
+      translateX(-40px)
+      rotate(-20deg)
+      scale(0.7);
+
+    opacity: 0;
+  }
+}
+
+/* =========================
+   DIAMONDS
+========================= */
+
+.diamond-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.diamond {
+  position: absolute;
+  bottom: -40px;
+
+  color: rgba(224, 205, 255, 0.45);
+
+  animation: floatDiamond linear infinite;
+
+  text-shadow:
+    0 0 8px rgba(180, 150, 255, 0.6),
+    0 0 20px rgba(180, 150, 255, 0.3);
+}
+
+@keyframes floatDiamond {
+  0% {
+    transform:
+      translateY(0)
+      rotate(0deg)
+      scale(0.6);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.5;
+  }
+
+  50% {
+    transform:
+      translateY(-55vh)
+      translateX(25px)
+      rotate(180deg)
+      scale(1);
+  }
+
+  100% {
+    transform:
+      translateY(-110vh)
+      translateX(-30px)
+      rotate(360deg)
+      scale(0.7);
+
+    opacity: 0;
+  }
+}
+
+/* =========================
+   GATE
+========================= */
+
+.gate-screen {
+  position: relative;
+
+  min-height: 100svh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(204, 155, 165, 0.17),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(210, 175, 130, 0.1),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #191312,
+      #090706
+    );
+}
+
+.gate-screen::before {
+  content: "";
+
+  position: absolute;
+  inset: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 30px;
+
+  pointer-events: none;
+}
+
+.gate-screen::after {
+  content: "";
+
+  position: absolute;
+  inset: 35px;
+
+  border: 1px solid rgba(216, 179, 106, 0.06);
+
+  border-radius: 25px;
+
+  pointer-events: none;
+}
+
+.gate-content {
+  position: relative;
+  z-index: 5;
+
+  width: min(700px, 100%);
+
+  text-align: center;
+}
+
+.gate-small {
+  margin: 0 0 25px;
+
+  font-size: 10px;
+
+  letter-spacing: 0.5em;
+
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.gate-content h1 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(40px, 7vw, 82px);
+
+  font-weight: 400;
+
+  line-height: 1.05;
+
+  letter-spacing: -0.04em;
+
+  text-shadow:
+    0 0 35px rgba(216, 179, 106, 0.08);
+}
+
+.gate-content h1 span {
+  color: #d9b5a0;
+  font-style: italic;
+}
+
+.gate-heart {
+  margin: 35px auto;
+
+  color: #d98c9b;
+
+  font-size: 32px;
+
+  animation: heartBeat 2s ease-in-out infinite;
+
+  text-shadow:
+    0 0 30px rgba(216, 179, 106, 0.18);
+}
+
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+  position: relative;
+}
+
+.unlock-button {
+  border: 1px solid rgba(216, 179, 106, 0.25);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: white;
+
+  padding: 15px 45px;
+
+  border-radius: 999px;
+
+  letter-spacing: 0.35em;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(15px);
+
+  transition: all 0.4s ease;
+}
+
+.unlock-button:hover {
+  background: rgba(216, 179, 106, 0.14);
+
+  border-color: rgba(240, 212, 154, 0.65);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 15px 50px rgba(216, 179, 106, 0.12);
+}
+
+.next-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: inherit;
+
+  padding: 14px 25px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+
+  letter-spacing: 0.22em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: all 0.35s ease;
+}
+
+.next-button:hover {
+  background: rgba(216, 179, 106, 0.1);
+
+  border-color: rgba(216, 179, 106, 0.55);
+
+  box-shadow:
+    0 0 30px rgba(216, 179, 106, 0.12);
+
+  transform: translateY(-3px);
+}
+
+button::after {
+  content: "♥";
+
+  position: absolute;
+
+  top: -12px;
+  right: -8px;
+
+  font-size: 11px;
+
+  color: #e8aab8;
+
+  opacity: 0;
+
+  transform:
+    translateY(7px)
+    scale(0);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(
+      0.17,
+      0.67,
+      0.3,
+      1.3
+    );
+
+  text-shadow:
+    0 0 10px rgba(232, 170, 184, 0.7);
+}
+
+button:hover::after {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+/* Do not add the global hover heart to image arrows */
+.photo-arrow::after {
+  display: none;
+}
+
+/* =========================
+   KEYPAD
+========================= */
+
+.keypad-box {
+  width: min(330px, 100%);
+
+  margin: 0 auto;
+
+  padding: 25px;
+
+  border-radius: 28px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  border: 1px solid rgba(216, 179, 106, 0.16);
+
+  backdrop-filter: blur(25px);
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(216, 179, 106, 0.04);
+}
+
+.keypad-title {
+  margin: 0 0 15px;
+
+  font-size: 11px;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  letter-spacing: 0.15em;
+}
+
+.password-display {
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 15px;
+
+  background: rgba(0, 0, 0, 0.25);
+
+  color: #dfc4a3;
+
+  letter-spacing: 0.5em;
+
+  font-size: 15px;
+}
+
+.keypad {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 9px;
+}
+
+.keypad button {
+  height: 58px;
+
+  border: 1px solid rgba(216, 179, 106, 0.08);
+
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  transition: 0.25s ease;
+}
+
+.keypad button:hover {
+  background: rgba(216, 179, 106, 0.14);
+
+  border-color: rgba(216, 179, 106, 0.35);
+
+  transform: scale(1.03);
+
+  box-shadow:
+    0 0 20px rgba(216, 179, 106, 0.08);
+}
+
+.keypad button:active {
+  transform: scale(0.94);
+}
+
+.wrong-password {
+  margin: 15px 0 0;
+
+  color: #e39aa5;
+
+  font-size: 11px;
+}
+
+.keypad-hint {
+  margin: 15px 0 0;
+
+  color: rgba(255, 255, 255, 0.3);
+
+  font-size: 10px;
+}
+
+/* =========================
+   STORY SECTIONS
+========================= */
+
+.story-section {
+  position: relative;
+
+  min-height: 100svh;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  padding: 90px 20px;
+}
+
+.story-section::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 14px;
+
+  border: 1px solid rgba(216, 179, 106, 0.07);
+
+  border-radius: 24px;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+.story-container {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(100%, 1000px);
+
+  margin: auto;
+}
+
+.story-container.wide {
+  width: min(100%, 1150px);
+}
+
+/* =========================
+   BACKGROUNDS
+========================= */
+
+.birth-section,
+.childhood-section,
+.family-section {
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(198, 157, 120, 0.15),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #f5ede3,
+      #e9ddd0
+    );
+
+  color: var(--ink);
+}
+
+.college-section {
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(202, 163, 106, 0.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #12100f,
+      #211815
+    );
+}
+
+.dream-section {
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(154, 119, 184, 0.1),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #121018,
+      #1a1521
+    );
+}
+
+.friends-section {
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(180, 130, 190, 0.1),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #111016,
+      #191421
+    );
+}
+
+.letter-section {
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(210, 133, 150, 0.13),
+      transparent 35%
+    ),
+    #130d0d;
+}
+
+/* =========================
+   SECTION TITLES
+========================= */
+
+.section-heading {
+  text-align: center;
+
+  margin-bottom: 65px;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+
+  font-size: 10px;
+
+  letter-spacing: 0.45em;
+
+  text-transform: uppercase;
+
+  color: var(--premium-gold);
+
+  text-shadow:
+    0 0 15px rgba(216, 179, 106, 0.18);
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-weight: 400;
+
+  font-size: clamp(42px, 7vw, 75px);
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+
+  text-shadow:
+    0 0 35px rgba(216, 179, 106, 0.08);
+}
+
+.gold-line {
+  width: 60px;
+
+  height: 1px;
+
+  margin: 25px auto;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--premium-gold),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px rgba(216, 179, 106, 0.25);
+}
+
+.section-description {
+  width: min(650px, 100%);
+
+  margin: 25px auto 0;
+
+  color: rgba(255, 255, 255, 0.52);
+
+  line-height: 1.9;
+
+  font-size: 14px;
+}
+
+.birth-section .section-description,
+.childhood-section .section-description,
+.family-section .section-description {
+  color: #806f61;
+}
+
+/* =========================
+   MEMORY CARD
+========================= */
+
+.memory-card {
+  position: relative;
+
+  width: min(100%, 800px);
+
+  margin: auto;
+
+  text-align: center;
+}
+
+.memory-slide {
+  width: 100%;
+}
+
+.memory-counter {
+  margin-bottom: 18px;
+
+  font-size: 10px;
+
+  letter-spacing: 0.4em;
+
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.birth-section .memory-counter,
+.childhood-section .memory-counter,
+.family-section .memory-counter {
+  color: #9b8575;
+}
+
+/* =========================
+   PHOTO FRAME
+========================= */
+
+.photo-frame {
+  position: relative;
+
+  width: 100%;
+
+  height: min(62vh, 650px);
+
+  min-height: 380px;
+
+  padding: 12px;
+
+  border-radius: 25px;
+
+  background: rgba(255, 255, 255, 0.045);
+
+  border: 1px solid rgba(216, 179, 106, 0.18);
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.28),
+    0 0 45px rgba(216, 179, 106, 0.045),
+    inset 0 0 30px rgba(216, 179, 106, 0.025);
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.photo-frame::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  border-radius: 18px;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+
+  border-radius: 17px;
+
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.photo-frame:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(216, 179, 106, 0.4);
+
+  box-shadow:
+    0 35px 100px rgba(0, 0, 0, 0.4),
+    0 0 55px rgba(216, 179, 106, 0.12);
+}
+
+/* =========================
+   IMAGE HEART
+========================= */
+
+.image-hover-heart {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.3);
+
+  font-size: 55px;
+
+  color: rgba(255, 190, 202, 0);
+
+  pointer-events: none;
+
+  text-shadow:
+    0 0 10px rgba(255, 160, 180, 0),
+    0 0 35px rgba(216, 179, 106, 0);
+
+  transition:
+    transform 0.45s cubic-bezier(
+      0.17,
+      0.67,
+      0.3,
+      1.3
+    ),
+    color 0.45s ease,
+    text-shadow 0.45s ease;
+
+  z-index: 5;
+}
+
+.photo-frame:hover .image-hover-heart {
+  transform:
+    translate(-50%, -50%)
+    scale(1);
+
+  color: rgba(255, 190, 202, 0.85);
+
+  text-shadow:
+    0 0 10px rgba(255, 160, 180, 0.8),
+    0 0 35px rgba(216, 179, 106, 0.5),
+    0 0 70px rgba(216, 179, 106, 0.25);
+}
+
+/* =========================
+   IMAGE ARROWS
+========================= */
+
+.photo-arrow {
+  position: absolute;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(216, 179, 106, 0.25);
+
+  background: rgba(15, 12, 10, 0.55);
+
+  backdrop-filter: blur(15px);
+
+  color: white;
+
+  font-size: 35px;
+
+  font-family: Georgia, serif;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.photo-arrow-left {
+  left: 25px;
+}
+
+.photo-arrow-right {
+  right: 25px;
+}
+
+.photo-arrow:hover {
+  background: rgba(216, 179, 106, 0.18);
+
+  border-color: rgba(240, 212, 154, 0.7);
+
+  box-shadow:
+    0 0 25px rgba(216, 179, 106, 0.25);
+
+  transform:
+    translateY(-50%)
+    scale(1.1);
+}
+
+.arrow-heart {
+  position: absolute;
+
+  font-size: 10px;
+
+  color: #e7b9c2;
+
+  opacity: 0;
+
+  transform:
+    translateY(12px)
+    scale(0);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.photo-arrow:hover .arrow-heart {
+  opacity: 1;
+
+  transform:
+    translateY(-25px)
+    scale(1);
+}
+
+/* =========================
+   MEMORY TEXT
+========================= */
+
+.memory-copy {
+  padding: 35px 15px 25px;
+}
+
+.memory-copy h3 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(30px, 5vw, 48px);
+
+  font-weight: 400;
+}
+
+.memory-copy p:last-child {
+  max-width: 600px;
+
+  margin: 15px auto 0;
+
+  line-height: 1.9;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  font-size: 14px;
+}
+
+.birth-section .memory-copy p:last-child,
+.childhood-section .memory-copy p:last-child,
+.family-section .memory-copy p:last-child {
+  color: #806f61;
+}
+
+/* =========================
+   MEMORY CONTROLS
+========================= */
+
+.memory-controls {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 25px;
+
+  margin-top: 25px;
+}
+
+.memory-control {
+  min-width: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 11px 17px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(216, 179, 106, 0.17);
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: rgba(255, 255, 255, 0.6);
+
+  font-size: 9px;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: all 0.35s ease;
+}
+
+.memory-control span {
+  color: var(--premium-gold);
+
+  font-size: 16px;
+}
+
+.memory-control:hover {
+  color: white;
+
+  border-color: rgba(216, 179, 106, 0.5);
+
+  background: rgba(216, 179, 106, 0.09);
+
+  box-shadow:
+    0 0 25px rgba(216, 179, 106, 0.12);
+
+  transform: translateY(-2px);
+}
+
+.memory-progress {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+}
+
+.memory-progress span {
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  transition:
+    width 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.memory-progress span.active {
+  width: 18px;
+
+  border-radius: 999px;
+
+  background: var(--premium-gold);
+
+  box-shadow:
+    0 0 12px rgba(216, 179, 106, 0.5);
+}
+
+/* =========================
+   5 SECOND TIMER
+========================= */
+
+.memory-timer {
+  width: 100%;
+
+  height: 1px;
+
+  margin-top: 25px;
+
+  overflow: hidden;
+
+  background: rgba(216, 179, 106, 0.08);
+}
+
+.memory-timer span {
+  display: block;
+  height: 100%;
+  width: 0;
+  animation: memoryTimer 15s linear forwards;
+}
+
+@keyframes memoryTimer {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+/* =========================
+   FAMILY
+========================= */
+
+.family-quote {
+  max-width: 650px;
+
+  margin: 70px auto 0;
+
+  text-align: center;
+}
+
+.family-quote p {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 25px;
+
+  line-height: 1.6;
+
+  font-style: italic;
+
+  color: #6e5c4d;
+}
+
+/* =========================
+   DREAM
+========================= */
+
+.dream-message {
+  margin-top: 70px;
+
+  text-align: center;
+}
+
+.dream-message span {
+  color: #d6b9e8;
+
+  font-size: 25px;
+}
+
+.dream-message p {
+  color: rgba(255, 255, 255, 0.45);
+
+  line-height: 1.8;
+}
+
+/* =========================
+   FRIENDS
+========================= */
+
+.friend-block {
+  margin: 100px auto;
+
+  padding: 50px 0;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.08);
+}
+
+.friend-intro {
+  text-align: center;
+
+  margin-bottom: 40px;
+}
+
+.friend-intro h3 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(38px, 6vw, 60px);
+
+  font-weight: 400;
+}
+
+.friend-intro > p:last-child {
+  max-width: 550px;
+
+  margin: 18px auto;
+
+  color: rgba(255, 255, 255, 0.45);
+
+  line-height: 1.8;
+}
+
+.friend-divider {
+  text-align: center;
+
+  color: #d4b6ed;
+
+  font-size: 25px;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.message-screen {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(700px, 100%);
+
+  margin: auto;
+
+  text-align: center;
+}
+
+.message-box {
+  margin-top: 35px;
+
+  padding: 25px;
+
+  border-radius: 25px;
+
+  background: rgba(255, 255, 255, 0.055);
+
+  border:
+    1px solid rgba(216, 179, 106, 0.14);
+
+  backdrop-filter: blur(25px);
+
+  text-align: left;
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.35);
+}
+
+.message-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding-bottom: 20px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  color: rgba(255, 255, 255, 0.4);
+
+  font-size: 11px;
+}
+
+.message-bubble {
+  display: flex;
+
+  gap: 15px;
+
+  padding: 30px 0;
+
+  align-items: center;
+}
+
+.message-avatar {
+  width: 50px;
+  height: 50px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #d19aa5;
+
+  color: white;
+
+  font-family: Georgia, serif;
+
+  font-size: 20px;
+}
+
+.message-name {
+  margin: 0;
+
+  color: white;
+
+  font-size: 14px;
+}
+
+.message-preview {
+  margin: 5px 0 0;
+
+  color: rgba(255, 255, 255, 0.4);
+
+  font-size: 12px;
+}
+
+.open-message {
+  width: 100%;
+
+  border: 0;
+
+  padding: 15px;
+
+  border-radius: 14px;
+
+  background: white;
+
+  color: #221817;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.open-message:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(216, 179, 106, 0.15);
+}
+
+.open-message span {
+  margin-left: 8px;
+
+  color: #c97f8c;
+}
+
+.letter-paper {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(800px, 100%);
+
+  margin: auto;
+
+  padding: clamp(30px, 7vw, 75px);
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      rgba(255, 252, 244, 0.97),
+      rgba(255, 249, 238, 0.97)
+    );
+
+  color: #40332b;
+
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.45);
+}
+
+.letter-small {
+  margin: 0;
+
+  color: #a58268;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.35em;
+
+  font-size: 10px;
+}
+
+.letter-paper h2 {
+  margin: 18px 0 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(35px, 6vw, 60px);
+
+  font-weight: 400;
+}
+
+.letter-line {
+  width: 60px;
+
+  height: 1px;
+
+  margin: 25px 0 35px;
+
+  background: #b99673;
+}
+
+.letter-content {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 17px;
+
+  line-height: 2;
+}
+
+.letter-content p {
+  margin: 0 0 25px;
+}
+
+.letter-sign {
+  margin-top: 45px !important;
+
+  font-style: italic;
+
+  color: #806b5c;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-section {
+  position: relative;
+
+  min-height: 100svh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  padding: 80px 20px;
+
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(207, 122, 143, 0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(216, 179, 106, 0.05),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #150c0d,
+      #080606
+    );
+}
+
+.final-section::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 14px;
+
+  border:
+    1px solid rgba(216, 179, 106, 0.08);
+
+  border-radius: 24px;
+
+  pointer-events: none;
+}
+
+.final-content {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(800px, 100%);
+
+  text-align: center;
+}
+
+.final-heart {
+  margin: 25px 0;
+
+  color: #e08d9c;
+
+  font-size: 45px;
+
+  text-shadow:
+    0 0 30px rgba(224, 141, 156, 0.4),
+    0 0 50px rgba(216, 179, 106, 0.12);
+}
+
+.final-content h1 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(55px, 10vw, 110px);
+
+  font-weight: 400;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.05em;
+}
+
+.final-content h1 span {
+  color: #dfad9a;
+
+  font-style: italic;
+}
+
+.final-quote {
+  max-width: 550px;
+
+  margin: 35px auto;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  line-height: 1.8;
+}
+
+.final-photo {
+  width: min(430px, 90vw);
+
+  height: min(540px, 65vh);
+
+  margin: 45px auto;
+
+  padding: 10px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border:
+    1px solid rgba(216, 179, 106, 0.25);
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(216, 179, 106, 0.08);
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.final-photo:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.55),
+    0 0 70px rgba(216, 179, 106, 0.14);
+}
+
+.final-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  display: block;
+
+  border-radius: 17px;
+
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.final-message {
+  color: rgba(255, 255, 255, 0.55);
+
+  line-height: 2;
+}
+
+.final-signature {
+  margin-top: 40px;
+
+  color: rgba(255, 255, 255, 0.4);
+
+  line-height: 1.8;
+}
+
+.final-signature strong {
+  color: #e0b49f;
+
+  font-family: Georgia, serif;
+
+  font-size: 22px;
+}
+
+.restart-button {
+  margin-top: 45px;
+
+  border:
+    1px solid rgba(216, 179, 106, 0.16);
+
+  border-radius: 999px;
+
+  padding: 12px 25px;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.45);
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  font-size: 10px;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+}
+
+.restart-button:hover {
+  color: white;
+
+  border-color:
+    rgba(216, 179, 106, 0.5);
+
+  box-shadow:
+    0 0 25px rgba(216, 179, 106, 0.1);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+  .gate-screen {
+    padding: 20px;
+  }
+
+  .gate-screen::before {
+    inset: 10px;
+    border-radius: 20px;
+  }
+
+  .gate-screen::after {
+    inset: 20px;
+    border-radius: 18px;
+  }
+
+  .story-section {
+    padding: 70px 15px;
+  }
+
+  .section-heading {
+    margin-bottom: 45px;
+  }
+
+  .photo-frame {
+    min-height: 330px;
+
+    height: 58vh;
+
+    padding: 7px;
+  }
+
+  .photo-frame::before {
+    inset: 8px;
+  }
+
+  .memory-copy {
+    padding-top: 25px;
+  }
+
+  .memory-copy h3 {
+    font-size: 30px;
+  }
+
+  .memory-copy p:last-child {
+    font-size: 13px;
+  }
+
+  .photo-arrow {
+    width: 42px;
+    height: 42px;
+
+    font-size: 28px;
+  }
+
+  .photo-arrow-left {
+    left: 15px;
+  }
+
+  .photo-arrow-right {
+    right: 15px;
+  }
+
+  .memory-controls {
+    gap: 8px;
+  }
+
+  .memory-control {
+    min-width: auto;
+
+    padding: 9px 12px;
+
+    font-size: 8px;
+  }
+
+  .memory-progress {
+    gap: 4px;
+  }
+
+  .memory-progress span {
+    width: 3px;
+    height: 3px;
+  }
+
+  .memory-progress span.active {
+    width: 12px;
+  }
+
+  .letter-paper {
+    padding: 35px 25px;
+  }
+
+  .letter-content {
+    font-size: 15px;
+  }
+
+  .final-photo {
+    height: 55vh;
+  }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    scroll-behavior: auto !important;
+
+    transition-duration: 0.01ms !important;
+  }
 }
